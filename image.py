@@ -17,7 +17,7 @@ def open_file():
 
 #abro uma janela
 root = Tk()
-root.title("capivaras")
+root.title("Laurinha")
 
 #crio meu menu
 menubar = Menu(root)
@@ -124,9 +124,49 @@ next = Button(root,text="próxima",command=next_image, fg="black", bg="pink", fo
 next.grid(row=1, column=2, sticky=E + W)
 
 #defino teclas para substituir os botôes
-root.bind("n", lambda event: next_image())
-root.bind("p", lambda event: prev_image())
+root.bind("<Button-1>", lambda event: next_image())
+root.bind("<Button-3>", lambda event: prev_image())
 root.bind("q", lambda event: root.quit())
 
 #rodo a janela
 root.mainloop()
+
+
+
+
+
+
+#              _.--""`-..
+#            ,'          `.
+#          ,'          __  `.
+#         /|          " __   \
+#        , |           / |.   .
+#        |,'          !_.'|   |
+#      ,'             '   |   |
+#     /              |`--'|   |
+#    |                `---'   |
+#     .   ,                   |                       ,".
+#      ._     '           _'  |                    , ' \ `
+#  `.. `.`-...___,...---""    |       __,.        ,`"   L,|
+#  |, `- .`._        _,-,.'   .  __.-'-. /        .   ,    \
+#-:..     `. `-..--_.,.<       `"      / `.        `-/ |   .
+#  `,         """"'     `.              ,'         |   |  ',,
+#    `.      '            '            /          '    |'. |/
+#      `.   |              \       _,-'           |       ''
+#        `._'               \   '"\                .      |
+#           |                '     \                `._  ,'
+#           |                 '     \                 .'|
+#           |                 .      \                | |
+#           |                 |       L              ,' |
+#           `                 |       |             /   '
+#            \                |       |           ,'   /
+#          ,' \               |  _.._ ,-..___,..-'    ,'
+#         /     .             .      `!             ,j'
+#        /       `.          /        .           .'/
+#       .          `.       /         |        _.'.'
+#        `.          7`'---'          |------"'_.'
+#       _,.`,_     _'                ,''-----"'
+#   _,-_    '       `.     .'      ,\
+#   -" /`.         _,'     | _  _  _.|
+#    ""--'---"""""'        `' '! |! /
+#                            `" " 
