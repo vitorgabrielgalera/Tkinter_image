@@ -113,14 +113,14 @@ def next_image():
     imagem_Label.grid(row=0, column=0, columnspan=3)
 
 #crio e posiciono os botões
-prev = Button(root,text="prev",command=prev_image, fg="white", bg="black", font="Overthink")
+prev = Button(root,text="anterior",command=prev_image, fg="black", bg="pink", font="Overthink")
 prev.grid(row=1, column=0, sticky=E + W)
 
 #o comando é um já pronto do Tk
-sair = Button(root,text="sair", command=root.quit, fg="white", bg="black", font="Overthink")
+sair = Button(root,text="sair", command=root.quit, fg="black", bg="pink", font="Overthink")
 sair.grid(row=1, column=1, sticky=E + W)
 
-next = Button(root,text="next",command=next_image, fg="white", bg="black", font="Overthink")
+next = Button(root,text="próxima",command=next_image, fg="black", bg="pink", font="Overthink")
 next.grid(row=1, column=2, sticky=E + W)
 
 #defino teclas para substituir os botôes
