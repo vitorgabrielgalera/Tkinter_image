@@ -5,13 +5,69 @@ from tkinter import filedialog
 from PIL import ImageTk, Image, ImageOps
 import os
 
+#armazena as imagens
+imagens = []
+
+#variavel de controle de imagem
+imagem_atual = 0
+
+#armazena a imagem
+imagem_Label = None
+
+#armazena o caminho para a pasta
+img_folder = ""
+
+#função para carregar imagens
+def load_images():
+    global img_folder
+    global imagens
+    global imagem_Label
+
+    if img_folder:
+        imagens.clear()
+
+        #pega um arquivo e faz uma lista com o que tem tudo no arquivo
+        arquivos = os.listdir(img_folder)
+
+        #percorre cada arquivo dentro de arquivos
+        for arquivo in arquivos:
+
+        #tenta abrir imagem
+            try:
+                img = Image.open(os.path.join(img_folder,arquivo))
+            
+            #defino o que fazer caso der errado (passar para o próximo)
+            except:
+                continue
+        
+            #defino o que fazer caso der certo (colocar a imagem)
+            else:
+                #redimenciono a imagem
+                img = ImageOps.contain(img, (500,500))
+
+                #adiciona a imagem na lista
+                imagens.append(ImageTk.PhotoImage(img))
+
+    else:
+        #cria uma imagem preta caso não exista uma pasta
+        img = Image.new("RGB", (500,500))
+        imagens.append(ImageTk.PhotoImage(img))
+
+    #exibe a primeira imagem
+    imagem_Label = Label(root, image=imagens[0])
+
+    #abro a imagem na janela
+    imagem_Label.grid(row=0, column=0, columnspan=3)
+
+
 #crio funções para o menu
-def open_file():
-    #defino para escolher um arquivo
-    folder_path = filedialog.askdirectory()
+def open_folder():
+    #defino par1a escolher um arquivo
+    global img_folder
+    img_folder = filedialog.askdirectory()
     #defino mensagem e sons
-    if folder_path:
-        messagebox.showinfo(title="abrindo diretório", message=f"O diretório selecionado foi: {folder_path}")
+    if img_folder:
+        load_images()
     else:
         messagebox.showerror(title="abrindo diretório", message="Nenhum diretório foi selecionado")
 
@@ -24,7 +80,7 @@ menubar = Menu(root)
 filemenu = Menu(menubar, tearoff=0)
 
 #coloco funções para o menu
-filemenu.add_command(label="Open", command= open_file)
+filemenu.add_command(label="Open", command= open_folder)
 filemenu.add_command(label="Save")
 filemenu.add_command(label="Exit")
 
@@ -33,44 +89,7 @@ menubar.add_cascade(label="File", menu=filemenu)
 
 #coloco o menu na janela
 root.config(menu=menubar)
-
-#pega um arquivo e faz uma lista com o que tem tudo no arquivo
-arquivos = os.listdir("imagens")
-
-#armazena as imagens
-imagens = []
-
-#percorre cada arquivo dentro de arquivos
-for arquivo in arquivos:
-
-#tenta abrir imagem
-    try:
-        img = Image.open("imagens/" + arquivo)
-        
-    #defino o que fazer caso der errado (passar para o próximo)
-    except:
-        continue
-    
-    #defino o que fazer caso der certo (colocar a imagem)
-    else:
-        #redimenciono a imagem
-        img = ImageOps.contain(img, (500,500))
-
-        #adiciona a imagem na lista
-        imagens.append(ImageTk.PhotoImage(img))
-
-#exibe arquivos em um label
-#arquivos_label = Label(root, text=arquivos)
-#arquivos_label.pack()
-
-#variavel de controle de imagem
-imagem_atual = 0
-
-#defino os parâmetros da imagem
-imagem_Label = Label(root, image=imagens[imagem_atual])
-
-#abro a imagem na janela
-imagem_Label.grid(row=0, column=0, columnspan=3)
+load_images()
 
 #defino as funções de avançae e voltar
 def prev_image():
@@ -94,7 +113,7 @@ def prev_image():
     imagem_Label.grid(row=0, column=0, columnspan=3)
 
 def next_image():
-    #transformo as variáveis em globa
+    #transformo as variáveis em global
     global imagem_atual
     global imagem_Label
     global imagens
@@ -124,8 +143,8 @@ next = Button(root,text="próxima",command=next_image, fg="black", bg="pink", fo
 next.grid(row=1, column=2, sticky=E + W)
 
 #defino teclas para substituir os botôes
-root.bind("<Button-1>", lambda event: next_image())
-root.bind("<Button-3>", lambda event: prev_image())
+root.bind("n", lambda event: next_image())
+root.bind("p", lambda event: prev_image())
 root.bind("q", lambda event: root.quit())
 
 #rodo a janela
